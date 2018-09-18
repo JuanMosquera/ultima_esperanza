@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -42,8 +44,8 @@ public class Transaccion implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "Num_Tarjeta")
-    private Integer numTarjeta;
+//    @Column(name = "Num_Tarjeta")
+//    private Integer numTarjeta;
     @Column(name = "CVV")
     private Integer cvv;
     @Column(name = "Fecha_Vencimiento")
@@ -51,6 +53,9 @@ public class Transaccion implements Serializable {
     private Date fechaVencimiento;
     @Column(name = "Valor_Transaccion")
     private Integer valorTransaccion;
+    @JoinColumn(name = "CLIENTE", referencedColumnName = "CLIENTE")
+    @ManyToOne(optional = false)
+    private Cliente numTarjeta;
 
     public Transaccion() {
     }
@@ -66,14 +71,17 @@ public class Transaccion implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public Integer getNumTarjeta() {
-        return numTarjeta;
-    }
-
-    public void setNumTarjeta(Integer numTarjeta) {
-        this.numTarjeta = numTarjeta;
-    }
+    
+    public Integer getNumTarjeta(){return this.numTarjeta.getNumTarjeta();}
+    public void setNumTarjeta(Integer code){this.numTarjeta=new Cliente(code);}
+//
+//    public Integer getNumTarjeta() {
+//        return numTarjeta;
+//    }
+//
+//    public void setNumTarjeta(Integer numTarjeta) {
+//        this.numTarjeta = numTarjeta;
+//    }
 
     public Integer getCvv() {
         return cvv;
